@@ -16,6 +16,27 @@
 
 1. Sidekiq is a ruby library for managing worker processes for rails appliaction. it reads the queue to perform the jobs.
 
+2. edit config/application.rb file
+   config.active_job.queue_adapter = :sidekiq
+
+3. edit config/initializers/sidekiq.rb
+   Sidekiq.configure_server do |config|
+   config.redis = { url: 'redis://localhost:6379' }
+   end
+   Sidekiq.configure_client do |config|
+   config.redis = { url: 'redis://localhost:6379' }
+   end
+
+## ways of performing jobs
+
+# In rails console
+
+1. try JobName.perform_now or JobName.perfrom_later
+
+# With rails controllers
+
+1. User JobName.perfrom now directly or put it inside a instance method to access from CRUD controller.
+
 ## Steps to use Sidekiq in project
 
 1. gem 'sidekiq', aslo sinatra as sidekiq is written in sinatara.
